@@ -29,4 +29,11 @@ def update(coach_id: int, name: str, rating: int, football_club: Optional[Footba
     coach_to_update = next((coach for coach in trainers if coach.id == coach_id), None)
 
     if coach_to_update: 
-        pass 
+        coach_to_update.name = name
+        coach_to_update.rating = rating
+
+        if football_club: 
+            coach_to_update.footbal_club = football_club
+            print(f"Тренер с ID {coach_id} обновлен.")
+    else: 
+        print(f"Тренер с ID {coach_id} не найден.")
