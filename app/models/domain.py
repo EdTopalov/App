@@ -1,22 +1,27 @@
 from datetime import datetime
 from typing import List, Optional
 
+
 class Football_Club:
     def __init__(
-        self, 
-        id: int, 
+        self,  
         name: str, 
         budget: int,  
         players: Optional[List["Player"]] = None,
         coach: Optional["Trainer"] = None,  
         creation_date: Optional[datetime] = None) -> None:
         
-        self.id = id
+        self.id = Sequence.getId()
         self.name = name
         self.budget = budget 
         self.players = players if players is not None else []
         self.coach = coach if coach else "Unknow"  
         self.creation_date = creation_date if creation_date else datetime.now()
+    
+    def remove_coach(self):
+        if self.coach:
+            print(f"Тренер {self.coach.name} удален из клуба {self.name}.")
+        self.coach = None
 
     @property
     def rating(self) -> float:
@@ -35,7 +40,6 @@ class Football_Club:
 
 class  Player:
     def __init__(self,
-        id: int,
         name: str,
         rating: int, 
         creation_date: Optional[datetime] = None, 
@@ -43,7 +47,7 @@ class  Player:
         if not (0<= rating <=5):
             raise ValueError("Рейтинг должен быть от 0 до 5.")
         
-        self.id = id 
+        self.id = Sequence.getId() 
         self.name = name
         self.rating = rating 
         self.football_club = football_club
@@ -51,7 +55,6 @@ class  Player:
 
 class Trainer:
     def __init__(self, 
-        id: int,
         name: str,
         rating: int,
         creation_date: Optional[datetime] = None,
@@ -59,8 +62,20 @@ class Trainer:
         if not (0<= rating <=5):
             raise ValueError("Рейтинг должен быть от 0 до 5.")
 
-        self.id = id 
+        self.id = Sequence.getId()
         self.name = name
         self.footbal_club = football_club
         self.rating = rating 
         self.creation_date = creation_date if creation_date is None else datetime.now()
+
+
+
+class Sequence:
+    _id: int = 0
+
+    @classmethod
+    def get_id(cls) -> int:
+        cls._id += 1
+        return cls._id
+    
+
