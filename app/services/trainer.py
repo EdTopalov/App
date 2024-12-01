@@ -1,14 +1,14 @@
-from app.models.domain import Trainer, Football_Club
+from app.models.domain import Trainer, FootballClub
 from typing import List, Optional
 
 trainers: List[Trainer] = []
 
-def create_coach(name: str, rating: int, club: Football_Club) -> Trainer:
+def create_coach(name: str, rating: int, club: FootballClub) -> Trainer:
     coach = Trainer(name = name , rating = rating, football_club=club)
     trainers.append(coach)
     return coach
 
-def delete_coach(coach_id: int, football_club: Optional[Football_Club] = None): 
+def delete_coach(coach_id: int, football_club: Optional[FootballClub] = None): 
     global trainers 
     coach_to_delete = next((coach for coach in trainers if coach.id == coach_id), None)
 
@@ -24,7 +24,7 @@ def delete_coach(coach_id: int, football_club: Optional[Football_Club] = None):
         print(f"Тренер с id {coach_id} не найден.")
         return False
 
-def update(coach_id: int, name: str, rating: int, football_club: Optional[Football_Club] = None):
+def update(coach_id: int, name: str, rating: int, football_club: Optional[FootballClub] = None):
     global trainers
     coach_to_update = next((coach for coach in trainers if coach.id == coach_id), None)
 

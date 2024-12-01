@@ -2,21 +2,22 @@ from datetime import datetime
 from typing import List, Optional
 
 
-class Football_Club:
+class FootballClub:
     def __init__(
         self,  
         name: str, 
         budget: int,  
-        players: Optional[List["Player"]] = None,
         coach: Optional["Trainer"] = None,  
-        creation_date: Optional[datetime] = None) -> None:
+        creation_date: Optional[datetime] = datetime.now(),
+        players: Optional[List["Player"]] = [],
+        ) -> None:
         
         self.id = Sequence.getId()
         self.name = name
         self.budget = budget 
-        self.players = players if players is not None else []
-        self.coach = coach if coach else "Unknow"  
-        self.creation_date = creation_date if creation_date else datetime.now()
+        self.players = players 
+        self.coach = coach
+        self.creation_date = creation_date
     
     def remove_coach(self):
         if self.coach:
@@ -42,33 +43,39 @@ class  Player:
     def __init__(self,
         name: str,
         rating: int, 
-        creation_date: Optional[datetime] = None, 
-        football_club: Optional[Football_Club] = None) -> None:
-        if not (0<= rating <=5):
-            raise ValueError("Рейтинг должен быть от 0 до 5.")
+        creation_date: Optional[datetime] = datetime.now(), 
+        football_club: Optional[FootballClub] = None) -> None:
         
         self.id = Sequence.getId() 
         self.name = name
-        self.rating = rating 
+        self.rating = self._validation(rating) 
         self.football_club = football_club
-        self.creation_date = creation_date if creation_date else datetime.now()
+        self.creation_date = creation_date 
+    
+    
+    def _validation(self, rating: int) -> int:
+        if not (0<= rating <= 5):
+            raise ValueError("Рейтинг должен быть от 0 доп 5")
+        return rating 
+        
 
 class Trainer:
     def __init__(self, 
         name: str,
         rating: int,
-        creation_date: Optional[datetime] = None,
-        football_club: Optional[Football_Club] = None) -> None:
-        if not (0<= rating <=5):
-            raise ValueError("Рейтинг должен быть от 0 до 5.")
+        creation_date: Optional[datetime] = datetime.now(),
+        football_club: Optional[FootballClub] = None) -> None:
 
         self.id = Sequence.getId()
         self.name = name
         self.footbal_club = football_club
-        self.rating = rating 
-        self.creation_date = creation_date if creation_date is None else datetime.now()
-
-
+        self.rating = self._validation(rating) 
+        self.creation_date = creation_date
+    
+    def _validation(self, rating: int) -> int:
+        if not (0<= rating <= 5):
+            raise ValueError("Рейтинг должен быть от 0 доп 5")
+        return rating 
 
 class Sequence:
     _id: int = 0
