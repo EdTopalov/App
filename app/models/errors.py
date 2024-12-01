@@ -1,0 +1,2 @@
+class InvalidRating(ValueError):
+    pass

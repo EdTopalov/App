@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
-
+from models.errors import InvalidRating
 
 class FootballClub:
     def __init__(
@@ -55,7 +55,7 @@ class  Player:
     
     def _validation(self, rating: int) -> int:
         if not (0<= rating <= 5):
-            raise ValueError("Рейтинг должен быть от 0 доп 5")
+            raise InvalidRating("Рейтинг должен быть от 0 доп 5")
         return rating 
         
 
@@ -74,7 +74,7 @@ class Trainer:
     
     def _validation(self, rating: int) -> int:
         if not (0<= rating <= 5):
-            raise ValueError("Рейтинг должен быть от 0 доп 5")
+            raise InvalidRating("Рейтинг должен быть от 0 доп 5")
         return rating 
 
 class Sequence:
@@ -84,5 +84,5 @@ class Sequence:
     def get_id(cls) -> int:
         cls._id += 1
         return cls._id
-    
 
+    
