@@ -24,6 +24,9 @@ def delete_coach(coach_id: int, football_club: Optional[FootballClub] = None):
         print(f"Тренер с id {coach_id} не найден.")
         return False
 
+
+
+
 def update(coach_id: int, name: str, rating: int, football_club: Optional[FootballClub] = None):
     global trainers
     coach_to_update = next((coach for coach in trainers if coach.id == coach_id), None)
