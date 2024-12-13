@@ -18,11 +18,6 @@ class FootballClub:
         self.players = players 
         self.coach = coach
         self.creation_date = creation_date
-    
-    def remove_coach(self):
-        if self.coach:
-            print(f"Тренер {self.coach.name} удален из клуба {self.name}.")
-        self.coach = None
 
     @property
     def rating(self) -> float:
